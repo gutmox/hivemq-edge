@@ -22,6 +22,7 @@ import com.hivemq.edge.modules.api.adapters.ModuleServices;
 import com.hivemq.edge.modules.api.adapters.ProtocolAdapter;
 import com.hivemq.edge.modules.api.events.EventService;
 import com.hivemq.extension.sdk.api.annotations.NotNull;
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Timeout;
 import org.junit.jupiter.api.extension.RegisterExtension;
@@ -37,7 +38,7 @@ class OpcUaProtocolAdapterAuthTest {
     @RegisterExtension
     public final @NotNull EmbeddedOpcUaServerExtension opcUaServerExtension = new EmbeddedOpcUaServerExtension();
 
-    @Test
+    @RepeatedTest(100)
     @Timeout(10)
     public void whenNoAuthAndNoSubscriptions_thenConnectSuccessfully() throws Exception {
         final OpcUaAdapterConfig config = new OpcUaAdapterConfig("test", opcUaServerExtension.getServerUri());
