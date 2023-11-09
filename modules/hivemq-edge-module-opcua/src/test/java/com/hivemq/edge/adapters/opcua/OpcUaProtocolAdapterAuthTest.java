@@ -28,6 +28,7 @@ import org.junit.jupiter.api.Timeout;
 import org.junit.jupiter.api.extension.RegisterExtension;
 import util.EmbeddedOpcUaServerExtension;
 
+import static org.awaitility.Awaitility.await;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -49,7 +50,7 @@ class OpcUaProtocolAdapterAuthTest {
         final ProtocolAdapterStartOutput out = mock(ProtocolAdapterStartOutput.class);
         protocolAdapter.start(in, out).get();
 
-        assertEquals(ProtocolAdapter.ConnectionStatus.CONNECTED, protocolAdapter.getConnectionStatus());
+        await().until(()->ProtocolAdapter.ConnectionStatus.CONNECTED == protocolAdapter.getConnectionStatus());
     }
 
     @Test
